@@ -1,0 +1,341 @@
+const chessboard = document.getElementById("chessboard");
+const playerturn=document.getElementById("turn");
+playerturn.innerHTML="white's";
+
+
+const rook_b = '<img class="pieces" id="rook_b" src="pieces_images/Chess_rdt60.png">';
+const rook_w = '<img class="pieces" id="rook_w" src="pieces_images/Chess_rlt60.png">';
+const knight_w = '<img class="pieces" id="knight_w" src="pieces_images/Chess_nlt60.png">';
+const knight_b = '<img class="pieces" id="knight_b" src="pieces_images/Chess_ndt60.png">';
+const bishop_b = '<img class="pieces" id="bishop_b" src="pieces_images/Chess_bdt60.png">';
+const bishop_w = '<img class="pieces" id="bishop_w" src="pieces_images/Chess_blt60.png">';
+
+const queen_b = '<img class="pieces" id="queen_b" src="pieces_images/Chess_qdt60.png">';
+const queen_w = '<img class="pieces" id="queen_w" src="pieces_images/Chess_qlt60.png">';
+const king_w = '<img class="pieces" id="king_w" src="pieces_images/Chess_klt60.png">';
+const king_b = '<img class="pieces" id="king_b" src="pieces_images/Chess_kdt60.png">';
+const pawn_b = '<img class="pieces" id="pawn_b" src="pieces_images/Chess_pdt60.png">';
+const pawn_w = '<img class="pieces" id="pawn_w" src="pieces_images/Chess_plt60.png">';
+
+const pieces = [
+
+  rook_w,  knight_w,bishop_w ,king_w, queen_w, bishop_w, knight_w, rook_w,
+  
+  pawn_w, pawn_w, pawn_w, pawn_w, pawn_w, pawn_w, pawn_w, pawn_w,
+ 
+  "", "", "", "", "", "", "", "",
+  "", "", "", "", "", "", "", "",
+  "", "", "", "", "", "", "", "",
+  "", "", "", "", "", "", "", "",
+  pawn_b, pawn_b, pawn_b, pawn_b, pawn_b, pawn_b, pawn_b, pawn_b, 
+  rook_b,  knight_b,bishop_b, queen_b, king_b, bishop_b, knight_b, rook_b,
+  
+];
+// ... (your piece and chessboard setup code) ...
+// ... (your piece and chessboard setup code) ...
+
+let selectedPiece = null;
+let removecolor=null;
+let checker=false;
+let pawn=false;
+let clickedSquare;
+let targetPiece;
+let playerselector;
+let contains;
+let clickedsquare;
+let clickedPiece;
+ let specificid1;
+ let specificid2;
+ let rook=false;
+ let targetelement;
+ let id;
+ let targetpiece;
+ let bishop=false;
+ let pieceselector;
+ let balck=true;
+ let white=true;
+ let arr=["d"];
+ let correct=false;
+pieces.forEach((pieceHTML, i) => {
+  const square = document.createElement("div");
+  square.classList.add("square");
+  square.setAttribute("square_id", i);
+
+  // Calculate the row and column based on the index.
+  const row = Math.floor(i / 8);
+  const column = i % 8;
+
+  if ((row + column) % 2 === 0) {
+    square.classList.add("green");
+  } else {
+    square.classList.add("white");
+  }
+
+  square.innerHTML = pieceHTML;
+  chessboard.appendChild(square);
+});
+
+// Set up event listeners after creating all the squares
+const square_arr = document.querySelectorAll(".square");
+square_arr.forEach((element) => {
+  element.addEventListener("click", handleSquareClick);
+});
+
+function handleSquareClick(event) {
+    
+    clickedSquare = event.currentTarget;
+    targetelement=event.target;
+   console.log(targetelement);  
+   console.log(clickedSquare);
+ 
+
+  if (selectedPiece) {
+     targetPiece = clickedSquare.querySelector(".pieces");
+    specificid2=Number(clickedSquare.getAttribute("square_id"));
+    
+    function appender(){
+
+        clickedSquare.appendChild(selectedPiece);
+        removecolor.classList.remove("highlighted");
+    }
+    function playerselector(){
+        
+        contains=selectedPiece.classList.contains("highlighted");
+    
+        //console.log(playerselector);
+      if(!contains){
+          playerselector=selectedPiece.getAttribute("src");
+          if(playerselector.includes("d")){
+     playerturn.innerHTML="white's";
+    
+     revertid();
+          }
+          if(playerselector.includes("l")){
+              playerturn.innerHTML="black's";
+              black=true;
+              reverseid();
+          }
+      }
+      selectedPiece=null;
+    }
+         
+
+    
+
+        for(var i=arr.length-1;i<arr.length;i++){
+            if(arr[i]!==arr[i-1]){
+                correct=true;
+               
+                break;
+            }
+    
+            else{
+                correct=false;
+                //removecolor.classList.remove("highlighted");
+            }
+        }
+    
+   function targetpiece(){
+
+    if(targetPiece){
+        // if(diff%8===0||diff<=8){
+     //console.log("hello");
+              pieceselector=targetPiece.getAttribute("src");
+             //console.log(playerselector);
+            //  console.log(pieceselector);
+              if(correct){
+              if(pieceselector.includes("d")&&id.includes("l")){
+                clickedSquare.removeChild(targetPiece);
+                removecolor.classList.remove("highlighted");
+                clickedSquare.classList.remove("highlighted");
+                checker=true;//it does not allow to go into handlepiececlick() function;
+               
+                appender();
+                playerselector();
+               
+                
+              }
+              }
+              if(correct){
+        if(pieceselector.includes("l")&&id.includes("d")){
+            console.log("hello");
+            clickedSquare.removeChild(targetPiece);
+          //  clickedSquare.classList.remove("highlighted");
+            checker=true;
+        
+            appender();
+            playerselector();
+        }
+        
+         }
+        
+   }
+   }
+    
+    if(rook){
+        if(correct){
+        const diff_r=Math.abs(specificid2-specificid1);
+     if(diff_r%8===0||diff_r<=8){//  should not work for diff_r=7;
+
+if(targetPiece){
+    targetpiece();
+    rook=false;
+}
+else{
+
+   appender();
+   playerselector();
+rook=false;
+}
+
+     }
+    
+    }
+   }
+   if(bishop){
+    if(correct){
+const diff_b=Math.abs(specificid2-specificid1);
+console.log(specificid1);
+console.log(specificid2);
+console.log(diff_b);
+    if(diff_b%7===0||diff_b%9===0){
+
+        if(targetPiece){
+            targetpiece();
+        
+            bishop=false;
+        }
+        else{
+        appender();
+        playerselector();
+            
+                bishop=false;
+            }
+          
+        }
+    }
+}
+   
+   if(pawn){
+    if(correct){
+             const si1=(specificid1)+8;
+    const spd1=(specificid1)+16;
+        
+        if(targetPiece){
+        if(specificid2===specificid1+9){
+
+            targetpiece();
+        }
+    
+        }
+        else{
+             if(specificid1>=8 && specificid1<=15){
+        
+            if(specificid2===spd1){
+ 
+                 appender();
+                 playerselector();
+             pawn=false;
+            }
+        }
+    if(specificid2===si1){
+        // If there's a target piece, remove it from the square
+        
+    appender();
+    playerselector();
+        pawn=false;
+      }
+    }
+}
+}
+}
+}
+
+
+square_arr.forEach((element) => {
+  element.addEventListener("click", handlePieceClick);
+});
+
+function handlePieceClick(event) {
+    if(!checker){ 
+         clickedPiece = event.target;
+
+         clickedsquare=event.currentTarget;
+        if (clickedPiece.classList.contains("pieces")) {
+              id=clickedPiece.getAttribute("src");
+           // console.log(id);
+            var concatinated=id.slice(20,23);
+           // console.log(concatinated);
+             //specificid1=clickedsquare.getAttribute("square_id");
+            
+
+             }
+       if(concatinated.includes("r")){
+
+        var concatinated_n=id.slice(21,22);
+        arr.push(concatinated_n);
+        //console.log(concatinated);
+rook=true;
+        specificid1=Number(clickedsquare.getAttribute("square_id"));
+        // console.log(specificid1);
+  if (selectedPiece) {
+    clickedsquare.classList.remove("highlighted");
+  }
+
+  clickedsquare.classList.add("highlighted");
+  selectedPiece = clickedPiece;
+  removecolor=clickedsquare;
+  if(clickedPiece.classList.contains("pieces")){
+    identifier=clickedPiece;
+  }
+
+
+       }
+
+        else if(concatinated.includes("b")){
+        var concatinated_n=id.slice(21,22);
+        arr.push(concatinated_n);
+        bishop=true;
+      //  console.log(concatinated);
+        specificid1=Number(clickedsquare.getAttribute("square_id"));
+                // console.log(specificid1);
+          if (selectedPiece) {
+            clickedsquare.classList.remove("highlighted");
+          }
+      
+          clickedsquare.classList.add("highlighted");
+          selectedPiece = clickedPiece;
+          removecolor=clickedsquare;
+       }
+           else if(concatinated.includes("p")){
+                var concatinated_n=id.slice(21,22);
+                arr.push(concatinated_n);
+pawn=true; //console.log(concatinated);
+                 specificid1=Number(clickedsquare.getAttribute("square_id"));
+                // console.log(specificid1);
+          if (selectedPiece) {
+            clickedsquare.classList.remove("highlighted");
+          }
+      
+          clickedsquare.classList.add("highlighted");
+          selectedPiece = clickedPiece;
+          removecolor=clickedsquare;
+        
+        }}}
+
+        checker=false;
+
+
+
+function reverseid(){
+    square_arr.forEach((element,i)=>{
+
+        const newvalue=63-i;
+        element.setAttribute("square_id",newvalue);
+    });
+}
+function revertid(){
+    square_arr.forEach((element,i)=>{
+        element.setAttribute("square_id",i)
+    });
+}

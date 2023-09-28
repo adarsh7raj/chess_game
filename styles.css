@@ -1,0 +1,45 @@
+/* Reset some default styles */
+body {
+    margin: 0;
+    padding: 0;
+}
+
+/* Center the chessboard */
+#chessboard {
+    width: 450px; /* Set the desired width of the chessboard */
+    height:450px;
+    border: 2px solid;/* Chessboard border */
+    display: flex;
+    flex-wrap: wrap;
+    margin-left:270px;
+}
+
+/* Define styles for the individual squares */
+.square {
+    width:56.25px ;
+    height:56.25px;
+    
+}
+.green {
+    background-color: green;
+}
+
+.white {
+    background-color: white;
+}
+
+/* Style for highlighting squares */
+.highlighted {
+    background-color: #3198a3; /* Light orange for highlighting */
+}
+
+/* Style for chess pieces */
+
+
+/* Optional: Style for player's turn message */
+#turn {
+    text-align: center;
+    margin-top: 10px;
+    font-weight: bold;
+    font-size: 20px;
+}
